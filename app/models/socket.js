@@ -11,7 +11,8 @@ var Socket = (function () {
         return this.instance;
     };
     Socket.prototype.onWorldReady = function (callback) {
-        this.socket.on('world', function (data) {
+        this.socket.on('connected', function (data) {
+            console.log(data);
             callback(data.world);
         });
     };
