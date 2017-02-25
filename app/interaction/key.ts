@@ -18,13 +18,14 @@ export class Key {
     }
 
     public upHandler(event: any): void {
-        console.log("upHandler");
         if (event.keyCode === this.code) {
+            console.log("upHandler");
+            console.log(event);
             if (this.isUp && this.press) this.press();
             this.isDown = true;
             this.isUp = false;
+            event.preventDefault();
         }
-        event.preventDefault();
     }
 
     public downHandler(event: any): void {
@@ -33,8 +34,8 @@ export class Key {
             if (this.isDown && this.press) this.press();
             this.isDown = false;
             this.isUp = true;
+            event.preventDefault();
         }
-        event.preventDefault();
     }
 
 }

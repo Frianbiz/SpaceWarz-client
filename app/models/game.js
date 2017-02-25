@@ -1,16 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var key_1 = require("./../interaction/key");
 var map_1 = require("./map");
 var player_1 = require("../models/player");
 var Game = (function () {
     function Game(innerWidth, innerHeight) {
         this.otherPlayers = [];
+        this.spaceKey = new key_1.Key(32);
         this.renderer = PIXI.autoDetectRenderer(innerWidth, innerHeight, { antialias: true }, false);
         $('.gameWrapper').append(this.renderer.view);
         this.onStageClick.bind(this);
         this.addStage();
         this.defineTicker();
         this.drawMap();
+        this.spaceKey.press = function () {
+            console.log('SpaceBar');
+        };
     }
     Game.prototype.addStage = function () {
         var _this = this;

@@ -15,7 +15,7 @@ export class Game {
     public map: Map;
     public socket: any;
 
-    public spaceKey: Key = new Key(32)
+    public spaceKey: Key = new Key(32);
 
     public constructor(innerWidth: number, innerHeight: number) {
         this.renderer = PIXI.autoDetectRenderer(innerWidth, innerHeight, { antialias: true }, false);
