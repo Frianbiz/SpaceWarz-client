@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Map = (function () {
     function Map() {
         var texture = PIXI.Texture.fromImage('/img/ground.png');

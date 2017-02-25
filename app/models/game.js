@@ -1,7 +1,7 @@
 "use strict";
-var map_1 = require('./map');
-var player_1 = require('../models/player');
-var socket_1 = require('../models/socket');
+Object.defineProperty(exports, "__esModule", { value: true });
+var map_1 = require("./map");
+var player_1 = require("../models/player");
 var Game = (function () {
     function Game(innerWidth, innerHeight) {
         this.renderer = PIXI.autoDetectRenderer(innerWidth, innerHeight, { antialias: true }, false);
@@ -23,11 +23,10 @@ var Game = (function () {
         });
     };
     Game.prototype.onStageClick = function (e) {
-        var io = socket_1.Socket.getInstance();
         this.mainPlayer.moveTo(e.data.global.x, e.data.global.y);
     };
     Game.prototype.loadMainPlayer = function (item) {
-        this.mainPlayer = new player_1.Player(item);
+        this.mainPlayer = new player_1.Player(item.myself);
         this.stage.addChild(this.mainPlayer.getRenderableItem());
     };
     Game.prototype.drawMap = function () {
