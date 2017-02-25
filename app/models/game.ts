@@ -1,3 +1,4 @@
+import { Key } from './../interaction/key';
 import { Map } from './map';
 import { Player } from '../models/player';
 
@@ -14,6 +15,8 @@ export class Game {
     public map: Map;
     public socket: any;
 
+    public spaceKey: Key = new Key(32)
+
     public constructor(innerWidth: number, innerHeight: number) {
         this.renderer = PIXI.autoDetectRenderer(innerWidth, innerHeight, { antialias: true }, false);
         $('.gameWrapper').append(this.renderer.view);
@@ -23,6 +26,9 @@ export class Game {
         this.addStage();
         this.defineTicker();
         this.drawMap();
+        this.spaceKey.press = () => {
+            console.log('SpaceBar');
+        }
     }
 
     private addStage(): void {
