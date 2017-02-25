@@ -34,18 +34,31 @@ export class Game {
         this.leftKey.press = () => {
             this.mainPlayer.moveToLeft();
         }
+        this.leftKey.release = () => {
+            this.mainPlayer.stopMoveAngle();
+        }
 
         this.upKey.press = () => {
             this.mainPlayer.moveForward();
+        }
+        this.upKey.release = () => {
+            this.mainPlayer.stopMoveVelocity();
         }
 
         this.downKey.press = () => {
             this.mainPlayer.moveBackward();
         }
+        this.downKey.release = () => {
+            this.mainPlayer.stopMoveVelocity();
+        }
 
         this.rightKey.press = () => {
             this.mainPlayer.moveRight();
         }
+        this.rightKey.release = () => {
+            this.mainPlayer.stopMoveAngle();
+        }
+
     }
 
     private addStage(): void {

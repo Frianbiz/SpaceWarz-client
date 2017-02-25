@@ -14,7 +14,7 @@ export class Socket {
     }
 
     public constructor() {
-        this.socket = io.connect('http://192.168.1.76:8080');
+        this.socket = io.connect('http://localhost:8080');
         PIXI.loader.add('/img/char.json').load();
     }
 
