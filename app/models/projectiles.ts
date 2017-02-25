@@ -9,8 +9,12 @@ export class Projectiles implements Renderable {
     public angle: Number;
     public velocity: Number;
     public damage: Number;
+    public width: Number = 5;
+    public height: Number = 5;
 
     public item: any;
+
+    public onMoved: Function;
 
     public constructor(id: String, position: Position, angle: Number, velocity: Number, damage: Number) {
         this.id = id;
@@ -18,11 +22,6 @@ export class Projectiles implements Renderable {
         this.angle = angle;
         this.velocity = velocity;
         this.damage = damage;
-        Socket.getInstance().onProjectileMoved(this.id, (data: any) => {
-            console.log("Projectile Moved");
-            console.log(data);
-            this.onMove(data);
-        });
     }
 
     public getRenderableItem(): any {

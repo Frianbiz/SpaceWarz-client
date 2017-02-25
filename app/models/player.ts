@@ -12,6 +12,9 @@ export class Player implements Renderable {
     // drawable
     public item: any;
 
+    public width: Number = 85;
+    public height: Number = 85;
+
     public constructor(data: any) {
         console.log('Constructed', data.id);
         this.id = data.id;

@@ -12,7 +12,7 @@ export class Game {
     //
     public mainPlayer: Player;
     public otherPlayers: Player[] = [];
-    public Projectiles: Projectiles[] = [];
+    public projectiles: Projectiles[] = [];
     public stage: any;
     public renderer: any;
     public map: Map;
@@ -27,7 +27,6 @@ export class Game {
     public constructor(innerWidth: number, innerHeight: number) {
         this.renderer = PIXI.autoDetectRenderer(innerWidth, innerHeight, { antialias: true }, false);
         $('.gameWrapper').append(this.renderer.view);
-
         this.addStage();
         this.defineTicker();
         this.drawMap();
@@ -63,11 +62,19 @@ export class Game {
 
 
         Socket.getInstance().onProjectileEmitted((data: any) => {
-            console.log(data);
             let proj: Projectiles = new Projectiles(data.id, data.position, data.angle, data.velocity, data.damage);
-            console.log(proj);
+            this.projectiles.push(proj);
             this.stage.addChild(proj.getRenderableItem());
-        })
+            Socket.getInstance().onProjectileMoved(proj.id, (data: any) => {
+                proj.onMove(data);
+                this.otherPlayers.forEach((player) => {
+                    if (this.hitTestRectangle(proj, player)) {
+                        proj.item = PIXI.Sprite.fromImage('/img/boum.png');
+                        this.stage.addChild(proj.getRenderableItem());
+                    }
+                });
+            });
+        });
     }
 
     private addStage(): void {
@@ -84,6 +91,7 @@ export class Game {
     public loadNewPlayer(item: any): void {
         let player: Player = new Player(item);
         this.otherPlayers.push(player);
+        console.log(this.otherPlayers);
         this.stage.addChild(player.getRenderableItem());
     }
 
@@ -104,4 +112,38 @@ export class Game {
     private shootEventEmitter(): void {
         Socket.getInstance().emit('shoot', {});
     };
+
+    private hitTestRectangle(projectile: any, ship: any) {
+        var hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
+        hit = false;
+        projectile.centerX = projectile.position.x + projectile.width / 2;
+        projectile.centerY = projectile.position.y + projectile.height / 2;
+        ship.centerX = ship.position.x + ship.width / 2;
+        ship.centerY = ship.position.y + ship.height / 2;
+        projectile.halfWidth = projectile.width / 2;
+        projectile.halfHeight = projectile.height / 2;
+        ship.halfWidth = ship.width / 2;
+        ship.halfHeight = ship.height / 2;
+        vx = projectile.centerX - ship.centerX;
+        vy = projectile.centerY - ship.centerY;
+        combinedHalfWidths = projectile.halfWidth + ship.halfWidth;
+        combinedHalfHeights = projectile.halfHeight + ship.halfHeight;
+        if (Math.abs(vx) < combinedHalfWidths) {
+
+            if (Math.abs(vy) < combinedHalfHeights) {
+
+                hit = true;
+            } else {
+
+                hit = false;
+            }
+        } else {
+
+            hit = false;
+        }
+
+        return hit;
+    };
+
 }
+
