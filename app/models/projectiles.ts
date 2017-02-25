@@ -1,3 +1,4 @@
+import { Socket } from './socket';
 import { Position } from './position';
 import { Renderable } from './../interfaces/renderable';
 
@@ -17,6 +18,11 @@ export class Projectiles implements Renderable {
         this.angle = angle;
         this.velocity = velocity;
         this.damage = damage;
+        Socket.getInstance().onProjectileMoved(this.id, (data: any) => {
+            console.log("Projectile Moved");
+            console.log(data);
+            this.onMove(data);
+        });
     }
 
     public getRenderableItem(): any {
@@ -36,5 +42,15 @@ export class Projectiles implements Renderable {
         item.id = this.id;
 
         this.item = item;
+    }
+
+    public onMove(data: any): void {
+        this.position.x = data.position.x;
+        this.position.y = data.position.y;
+        this.angle = data.angle;
+        this.item.anchor.set(0.5);
+        this.item.x = this.position.x;
+        this.item.y = this.position.y;
+        this.item.rotation = this.angle;
     }
 }

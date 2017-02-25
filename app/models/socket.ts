@@ -42,6 +42,12 @@ export class Socket {
         });
     }
 
+    public onProjectileMoved(id: String, callback: (data: any) => void) {
+        this.socket.on('projectile.' + id + '.moved', function (data: any) {
+            callback(data);
+        });
+    }
+
     public on(event: string, callback: (data: any) => void): void {
         console.log('Subscribed to socket event', event);
         this.socket.on(event, callback);

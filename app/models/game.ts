@@ -50,7 +50,9 @@ export class Game {
         }
 
         Socket.getInstance().onProjectileEmitted((data: any) => {
+            console.log(data);
             let proj: Projectiles = new Projectiles(data.id, data.position, data.angle, data.velocity, data.damage);
+            console.log(proj);
             this.stage.addChild(proj.getRenderableItem());
         })
     }
