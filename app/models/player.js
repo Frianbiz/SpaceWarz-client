@@ -1,12 +1,14 @@
 "use strict";
-var socket_1 = require('./socket');
+Object.defineProperty(exports, "__esModule", { value: true });
+var position_1 = require("./position");
+var socket_1 = require("./socket");
 var Player = (function () {
     function Player(data) {
         var _this = this;
         console.log('Constructed', data.id);
         this.id = data.id;
-        this.x = data.position.x;
-        this.y = data.position.y;
+        this.position = new position_1.Position(data.position.x, data.position.y);
+        this.angle = data.angle;
         this.name = data.name;
         socket_1.Socket.getInstance().on('player.' + this.id + '.moved', function (data) {
             _this.onMove(data);
@@ -19,9 +21,9 @@ var Player = (function () {
         return this.item;
     };
     Player.prototype.constructItem = function () {
-        var item = PIXI.Sprite.fromImage('/img/player.png');
-        item.position.x = this.x;
-        item.position.y = this.y;
+        var item = PIXI.Sprite.fromImage('/img/ship.png');
+        item.position.x = this.position.x;
+        item.position.y = this.position.y;
         item.scale.x = 1;
         item.scale.y = 1;
         item.id = this.id;
@@ -31,10 +33,10 @@ var Player = (function () {
         socket_1.Socket.getInstance().emit('moveTo', { x: x, y: y });
     };
     Player.prototype.onMove = function (data) {
-        this.x = data.position.x;
-        this.y = data.position.y;
-        this.item.x = this.x;
-        this.item.y = this.y;
+        this.position.x = data.position.x;
+        this.position.y = data.position.y;
+        this.item.x = this.position.x;
+        this.item.y = this.position.y;
     };
     return Player;
 }());

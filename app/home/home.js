@@ -11,9 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var core_1 = require('@angular/core');
-var game_1 = require('../models/game');
-var socket_1 = require('../models/socket');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var game_1 = require("../models/game");
+var socket_1 = require("../models/socket");
 var Home = (function () {
     function Home(window) {
         this.innerWidth = window.innerWidth;
@@ -29,15 +30,15 @@ var Home = (function () {
             _this.game.loadMainPlayer(data);
         });
     };
-    Home = __decorate([
-        core_1.Component({
-            selector: 'home',
-            templateUrl: 'app/home/home.html'
-        }),
-        __param(0, core_1.Inject('Window')), 
-        __metadata('design:paramtypes', [Window])
-    ], Home);
     return Home;
 }());
+Home = __decorate([
+    core_1.Component({
+        selector: 'home',
+        templateUrl: 'app/home/home.html'
+    }),
+    __param(0, core_1.Inject('Window')),
+    __metadata("design:paramtypes", [Window])
+], Home);
 exports.Home = Home;
 //# sourceMappingURL=home.js.map

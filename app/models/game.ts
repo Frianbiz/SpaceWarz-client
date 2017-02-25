@@ -1,6 +1,5 @@
 import { Map } from './map';
 import { Player } from '../models/player';
-import { Socket } from '../models/socket';
 
 declare var PIXI: any;
 
@@ -37,13 +36,12 @@ export class Game {
     }
 
     public onStageClick(e: any): void {
-        let io = Socket.getInstance();
         this.mainPlayer.moveTo(e.data.global.x, e.data.global.y);
     }
 
 
     public loadMainPlayer(item: any): void {
-        this.mainPlayer = new Player(item);
+        this.mainPlayer = new Player(item.myself);
         this.stage.addChild(this.mainPlayer.getRenderableItem());
     }
 

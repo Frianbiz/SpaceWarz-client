@@ -1,7 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Socket = (function () {
     function Socket() {
-        this.socket = io.connect('localhost:25565');
+        this.socket = io.connect('http://192.168.1.76:8080');
     }
     Socket.getInstance = function () {
         if (this.instance === undefined) {
@@ -15,7 +16,7 @@ var Socket = (function () {
         });
     };
     Socket.prototype.onPlayerReady = function (callback) {
-        this.socket.on('player', function (data) {
+        this.socket.on('connected', function (data) {
             PIXI.loader.add('/img/char.json').load();
             callback(data);
         });
