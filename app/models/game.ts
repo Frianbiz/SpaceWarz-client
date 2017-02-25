@@ -16,12 +16,14 @@ export class Game {
     public socket: any;
 
     public spaceKey: Key = new Key(32);
+    public leftKey: Key = new Key(37);
+    public rightKey: Key = new Key(39);
+    public upKey: Key = new Key(38);
+    public downKey: Key = new Key(40);
 
     public constructor(innerWidth: number, innerHeight: number) {
         this.renderer = PIXI.autoDetectRenderer(innerWidth, innerHeight, { antialias: true }, false);
         $('.gameWrapper').append(this.renderer.view);
-
-        this.onStageClick.bind(this);
 
         this.addStage();
         this.defineTicker();
@@ -29,22 +31,29 @@ export class Game {
         this.spaceKey.press = () => {
             console.log('SpaceBar');
         };
+
+        this.leftKey.press = () => {
+            this.mainPlayer.moveToLeft();
+        }
+
+        this.upKey.press = () => {
+            this.mainPlayer.moveForward();
+        }
+
+        this.downKey.press = () => {
+            this.mainPlayer.moveBackward();
+        }
+
+        this.rightKey.press = () => {
+            this.mainPlayer.moveRight();
+        }
     }
 
     private addStage(): void {
         this.stage = new PIXI.Container();
         this.stage.interactive = true;
-        this.stage.on('click', (e: any) => {
-            this.onStageClick(e);
-        });
-        this.stage.on('tap', (e: any) => {
-            this.onStageClick(e);
-        });
     }
 
-    public onStageClick(e: any): void {
-        this.mainPlayer.moveTo(e.data.global.x, e.data.global.y);
-    }
 
     public loadMainPlayer(item: any): void {
         this.mainPlayer = new Player(item.myself);
