@@ -15,6 +15,7 @@ export class Socket {
 
     public constructor() {
         this.socket = io.connect('http://192.168.1.76:8080');
+        PIXI.loader.add('/img/char.json').load();
     }
 
     public onWorldReady(callback: (data: any) => void) {
@@ -25,14 +26,12 @@ export class Socket {
 
     public onPlayerReady(callback: (data: any) => void) {
         this.socket.on('connected', function (data: any) {
-            PIXI.loader.add('/img/char.json').load();
             callback(data);
         });
     }
 
     public onNewPlayerReady(callback: (data: any) => void) {
         this.socket.on('newPlayerConnected', function (data: any) {
-            PIXI.loader.add('/img/char.json').load();
             callback(data);
         });
     }
@@ -46,7 +45,7 @@ export class Socket {
         this.socket.on(event, callback);
     }
 
-    public emit(event: string, data: any) {
+    public emit(event: string, data: any = undefined) {
         console.log('Emited event', event, data);
         this.socket.emit(event, data);
     }

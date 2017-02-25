@@ -1,8 +1,9 @@
 <div class='playerDebug' *ngIf="game && game.mainPlayer">
-    {{ game.mainPlayer.id }} x: {{ game.mainPlayer.position.x }}, y: {{ game.mainPlayer.position.y }}
+    {{ game.mainPlayer.id }} x: {{ game.mainPlayer.position.x }}, y: {{ game.mainPlayer.position.y }}, °: {{ game.mainPlayer.angle
+    }}
     <hr />
     <ul *ngFor="let player of game.otherPlayers">
-        <li>{{ game.player.id }} x: {{ game.player.position.x }}, y: {{ game.player.position.y }}</li>
+        <li>{{ player.id }} x: {{ player.position.x }}, y: {{ player.position.y }}, °: {{ player.angle }}</li>
     </ul>
 </div>
 <div class="gameWrapper">

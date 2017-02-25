@@ -20,7 +20,7 @@ export class Player implements Renderable {
         this.name = data.name;
 
         Socket.getInstance().on('player.' + this.id + '.moved', (data: any) => {
-            //this.onMove(data);
+            this.onMove(data);
         });
     }
 
@@ -47,10 +47,29 @@ export class Player implements Renderable {
         Socket.getInstance().emit('move', { x: x, y: y });
     }
 
+    public moveToLeft(): void {
+        Socket.getInstance().emit('moveLeft');
+    }
+
+    public moveForward(): void {
+        Socket.getInstance().emit('moveForward');
+    }
+
+    public moveBackward(): void {
+        Socket.getInstance().emit('moveBackward');
+    }
+
+    public moveRight(): void {
+        Socket.getInstance().emit('moveRight');
+    }
+
     public onMove(data: any): void {
         this.position.x = data.position.x;
         this.position.y = data.position.y;
+        this.angle = data.angle;
+        this.item.anchor.set(0.5);
         this.item.x = this.position.x;
         this.item.y = this.position.y;
+        this.item.rotation = this.angle;
     }
 }

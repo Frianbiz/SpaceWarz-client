@@ -29,7 +29,7 @@ export class Key {
     }
 
     public downHandler(event: any): void {
-        console.log("downHandler");
+        console.log("downHandler", event.keyCode);
         if (event.keyCode === this.code) {
             if (this.isDown && this.press) this.press();
             this.isDown = false;
