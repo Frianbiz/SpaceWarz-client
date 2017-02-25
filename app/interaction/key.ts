@@ -21,7 +21,7 @@ export class Key {
         if (event.keyCode === this.code) {
             console.log("upHandler");
             console.log(event);
-            if (this.isUp && this.press) this.press();
+            if (this.isUp && this.release) this.release();
             this.isDown = true;
             this.isUp = false;
             event.preventDefault();

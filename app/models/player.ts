@@ -63,6 +63,14 @@ export class Player implements Renderable {
         Socket.getInstance().emit('moveRight');
     }
 
+    public stopMoveAngle(): void {
+        Socket.getInstance().emit('stopedMovedAngle');
+    }
+
+    public stopMoveVelocity(): void {
+        Socket.getInstance().emit('stopedMovedVelocity');
+    }
+
     public onMove(data: any): void {
         this.position.x = data.position.x;
         this.position.y = data.position.y;
