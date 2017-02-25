@@ -28,7 +28,7 @@ export class Game {
         this.drawMap();
         this.spaceKey.press = () => {
             console.log('SpaceBar');
-        }
+        };
     }
 
     private addStage(): void {
