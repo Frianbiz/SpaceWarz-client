@@ -4,14 +4,13 @@ var position_1 = require("./position");
 var socket_1 = require("./socket");
 var Player = (function () {
     function Player(data) {
-        var _this = this;
         console.log('Constructed', data.id);
         this.id = data.id;
         this.position = new position_1.Position(data.position.x, data.position.y);
         this.angle = data.angle;
         this.name = data.name;
         socket_1.Socket.getInstance().on('player.' + this.id + '.moved', function (data) {
-            _this.onMove(data);
+            //this.onMove(data);
         });
     }
     Player.prototype.getRenderableItem = function () {
@@ -30,7 +29,7 @@ var Player = (function () {
         this.item = item;
     };
     Player.prototype.moveTo = function (x, y) {
-        socket_1.Socket.getInstance().emit('moveTo', { x: x, y: y });
+        socket_1.Socket.getInstance().emit('move', { x: x, y: y });
     };
     Player.prototype.onMove = function (data) {
         this.position.x = data.position.x;

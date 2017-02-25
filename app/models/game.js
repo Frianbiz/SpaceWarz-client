@@ -4,6 +4,7 @@ var map_1 = require("./map");
 var player_1 = require("../models/player");
 var Game = (function () {
     function Game(innerWidth, innerHeight) {
+        this.otherPlayers = [];
         this.renderer = PIXI.autoDetectRenderer(innerWidth, innerHeight, { antialias: true }, false);
         $('.gameWrapper').append(this.renderer.view);
         this.onStageClick.bind(this);
@@ -26,8 +27,13 @@ var Game = (function () {
         this.mainPlayer.moveTo(e.data.global.x, e.data.global.y);
     };
     Game.prototype.loadMainPlayer = function (item) {
-        this.mainPlayer = new player_1.Player(item.myself);
+        this.mainPlayer = new player_1.Player(item);
         this.stage.addChild(this.mainPlayer.getRenderableItem());
+    };
+    Game.prototype.loadNewPlayer = function (item) {
+        var player = new player_1.Player(item);
+        this.otherPlayers.push(player);
+        this.stage.addChild(player.getRenderableItem());
     };
     Game.prototype.drawMap = function () {
         this.map = new map_1.Map();

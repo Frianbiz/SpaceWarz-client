@@ -30,6 +30,9 @@ export class Home implements AfterViewInit {
         socket.onPlayerReady((data: any) => {
             this.game.loadMainPlayer(data);
         });
+        socket.onNewPlayerReady((data: any) => {
+            this.game.loadNewPlayer(data);
+        });
     }
 
 }

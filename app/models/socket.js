@@ -21,6 +21,12 @@ var Socket = (function () {
             callback(data);
         });
     };
+    Socket.prototype.onNewPlayerReady = function (callback) {
+        this.socket.on('newPlayerConnected', function (data) {
+            PIXI.loader.add('/img/char.json').load();
+            callback(data);
+        });
+    };
     Socket.prototype.on = function (event, callback) {
         console.log('Subscribed to socket event', event);
         this.socket.on(event, callback);

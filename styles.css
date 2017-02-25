@@ -2,3 +2,13 @@ body, html {
   margin : 0;
   overflow: hidden;
 }
+
+.playerDebug {
+    position: fixed;
+    right: 0;
+    background: rgba(255,255,255,.3);
+    color: white;
+    padding: 10px;
+    font-size: 12px;
+    font-family: roboto;
+}

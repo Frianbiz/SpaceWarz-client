@@ -30,6 +30,13 @@ export class Socket {
         });
     }
 
+    public onNewPlayerReady(callback: (data: any) => void) {
+        this.socket.on('newPlayerConnected', function (data: any) {
+            PIXI.loader.add('/img/char.json').load();
+            callback(data);
+        });
+    }
+
     public on(event: string, callback: (data: any) => void): void {
         console.log('Subscribed to socket event', event);
         this.socket.on(event, callback);

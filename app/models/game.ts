@@ -8,6 +8,7 @@ export class Game {
     public fps: number;
     //
     public mainPlayer: Player;
+    public otherPlayers: Player[] = [];
     public stage: any;
     public renderer: any;
     public map: Map;
@@ -39,10 +40,15 @@ export class Game {
         this.mainPlayer.moveTo(e.data.global.x, e.data.global.y);
     }
 
-
     public loadMainPlayer(item: any): void {
-        this.mainPlayer = new Player(item.myself);
+        this.mainPlayer = new Player(item);
         this.stage.addChild(this.mainPlayer.getRenderableItem());
+    }
+
+    public loadNewPlayer(item: any): void {
+        let player: Player = new Player(item);
+        this.otherPlayers.push(player);
+        this.stage.addChild(player.getRenderableItem());
     }
 
     private drawMap(): void {

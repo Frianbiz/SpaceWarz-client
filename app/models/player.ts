@@ -20,7 +20,7 @@ export class Player implements Renderable {
         this.name = data.name;
 
         Socket.getInstance().on('player.' + this.id + '.moved', (data: any) => {
-            this.onMove(data);
+            //this.onMove(data);
         });
     }
 
@@ -44,7 +44,7 @@ export class Player implements Renderable {
     }
 
     public moveTo(x: number, y: number): void {
-        Socket.getInstance().emit('moveTo', { x: x, y: y });
+        Socket.getInstance().emit('move', { x: x, y: y });
     }
 
     public onMove(data: any): void {
