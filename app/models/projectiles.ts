@@ -11,6 +11,7 @@ export class Projectiles implements Renderable {
     public damage: Number;
 
     public item: any;
+    //public onDead: EventEmmiter<any> = new EventEmitter();
 
     public constructor(id: String, position: Position, angle: Number, velocity: Number, damage: Number) {
         this.id = id;
@@ -19,9 +20,10 @@ export class Projectiles implements Renderable {
         this.velocity = velocity;
         this.damage = damage;
         Socket.getInstance().onProjectileMoved(this.id, (data: any) => {
-            console.log("Projectile Moved");
-            console.log(data);
             this.onMove(data);
+        });
+        Socket.getInstance().onProjectileDead(this.id, () => {
+            this.item.visible = false;
         });
     }
 

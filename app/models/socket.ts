@@ -15,6 +15,7 @@ export class Socket {
 
     public constructor() {
         this.socket = io.connect('http://localhost:8080');
+        //this.socket = io.connect('http://192.168.1.76:8080');
         PIXI.loader.add('/img/char.json').load();
     }
 
@@ -48,13 +49,17 @@ export class Socket {
         });
     }
 
+    public onProjectileDead(id: String, callback: (data: any) => void) {
+        this.socket.on('projectile.' + id + '.dead', function (data: any) {
+            callback(data);
+        });
+    }
+
     public on(event: string, callback: (data: any) => void): void {
-        console.log('Subscribed to socket event', event);
         this.socket.on(event, callback);
     }
 
     public emit(event: string, data: any = undefined) {
-        console.log('Emited event', event, data);
         this.socket.emit(event, data);
     }
 

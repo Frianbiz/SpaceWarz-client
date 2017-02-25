@@ -29,6 +29,10 @@ export class Home implements AfterViewInit {
         });
         socket.onPlayerReady((data: any) => {
             this.game.loadMainPlayer(data);
+            this.game.mainPlayer.onPlayerMoved = (item: any) => {
+                this.game.stage.position.x = - item.position.x + this.innerWidth / 2;
+                this.game.stage.position.y = - item.position.y + this.innerHeight / 2;
+            };
         });
         socket.onNewPlayerReady((data: any) => {
             this.game.loadNewPlayer(data);

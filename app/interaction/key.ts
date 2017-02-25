@@ -19,8 +19,6 @@ export class Key {
 
     public upHandler(event: any): void {
         if (event.keyCode === this.code) {
-            console.log("upHandler");
-            console.log(event);
             if (this.isUp && this.release) this.release();
             this.isDown = true;
             this.isUp = false;
@@ -29,7 +27,6 @@ export class Key {
     }
 
     public downHandler(event: any): void {
-        console.log("downHandler", event.keyCode);
         if (event.keyCode === this.code) {
             if (this.isDown && this.press) this.press();
             this.isDown = false;

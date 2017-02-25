@@ -11,9 +11,9 @@ export class Player implements Renderable {
     public angle: number;
     // drawable
     public item: any;
+    public onPlayerMoved: Function;
 
     public constructor(data: any) {
-        console.log('Constructed', data.id);
         this.id = data.id;
         this.position = new Position(data.position.x, data.position.y);
         this.angle = data.angle;
@@ -21,6 +21,9 @@ export class Player implements Renderable {
 
         Socket.getInstance().on('player.' + this.id + '.moved', (data: any) => {
             this.onMove(data);
+            if (this.onPlayerMoved !== undefined) {
+                this.onPlayerMoved(this.item);
+            }
         });
     }
 
