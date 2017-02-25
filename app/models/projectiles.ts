@@ -9,9 +9,12 @@ export class Projectiles implements Renderable {
     public angle: Number;
     public velocity: Number;
     public damage: Number;
+    public width: Number = 5;
+    public height: Number = 5;
 
     public item: any;
-    //public onDead: EventEmmiter<any> = new EventEmitter();
+
+    public onMoved: Function;
 
     public constructor(id: String, position: Position, angle: Number, velocity: Number, damage: Number) {
         this.id = id;
@@ -19,12 +22,6 @@ export class Projectiles implements Renderable {
         this.angle = angle;
         this.velocity = velocity;
         this.damage = damage;
-        Socket.getInstance().onProjectileMoved(this.id, (data: any) => {
-            this.onMove(data);
-        });
-        Socket.getInstance().onProjectileDead(this.id, () => {
-            this.item.visible = false;
-        });
     }
 
     public getRenderableItem(): any {

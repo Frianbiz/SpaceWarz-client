@@ -13,6 +13,9 @@ export class Player implements Renderable {
     public item: any;
     public onPlayerMoved: Function;
 
+    public width: Number = 85;
+    public height: Number = 85;
+
     public constructor(data: any) {
         this.id = data.id;
         this.position = new Position(data.position.x, data.position.y);
