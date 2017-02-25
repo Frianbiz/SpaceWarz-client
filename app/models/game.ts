@@ -47,7 +47,7 @@ export class Game {
     }
 
     public loadMainPlayer(item: any): void {
-        this.mainPlayer = new Player(item);
+        this.mainPlayer = new Player(item.myself);
         this.stage.addChild(this.mainPlayer.getRenderableItem());
     }
 
