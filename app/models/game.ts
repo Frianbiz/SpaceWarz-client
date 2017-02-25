@@ -1,5 +1,4 @@
 import { Map } from './map';
-import { Resource } from '../models/resource';
 import { Player } from '../models/player';
 import { Socket } from '../models/socket';
 
