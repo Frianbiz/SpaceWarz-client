@@ -1,3 +1,4 @@
+import { Position } from './position';
 import { Renderable } from './../interfaces/renderable';
 
 export class Projectiles implements Renderable {
