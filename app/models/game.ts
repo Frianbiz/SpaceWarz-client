@@ -1,3 +1,4 @@
+import { Socket } from './socket';
 import { Key } from './../interaction/key';
 import { Map } from './map';
 import { Player } from '../models/player';
@@ -13,7 +14,7 @@ export class Game {
     public stage: any;
     public renderer: any;
     public map: Map;
-    public socket: any;
+    public socket: Socket;
 
     public spaceKey: Key = new Key(32);
     public leftKey: Key = new Key(37);
@@ -28,9 +29,7 @@ export class Game {
         this.addStage();
         this.defineTicker();
         this.drawMap();
-        this.spaceKey.press = () => {
-            console.log('SpaceBar');
-        };
+        this.spaceKey.press = this.shootEventEmitter;
 
         this.leftKey.press = () => {
             this.mainPlayer.moveToLeft();
@@ -79,4 +78,8 @@ export class Game {
             _self.renderer.render(_self.stage);
         });
     }
+
+    private shootEventEmitter(): void {
+        Socket.getInstance().emit('shoot', {});
+    };
 }

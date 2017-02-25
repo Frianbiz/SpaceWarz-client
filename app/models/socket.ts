@@ -36,6 +36,10 @@ export class Socket {
         });
     }
 
+    public onShoot(callback: (data: any) => void) {
+
+    }
+
     public on(event: string, callback: (data: any) => void): void {
         console.log('Subscribed to socket event', event);
         this.socket.on(event, callback);
