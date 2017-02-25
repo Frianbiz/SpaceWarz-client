@@ -68,12 +68,6 @@ export class Game {
             this.stage.addChild(proj.getRenderableItem());
             Socket.getInstance().onProjectileMoved(proj.id, (data: any) => {
                 proj.onMove(data);
-                this.otherPlayers.forEach((player) => {
-                    if (this.hitTestRectangle(proj, player)) {
-                        proj.item = PIXI.Sprite.fromImage('/img/boum.png');
-                        this.stage.addChild(proj.getRenderableItem());
-                    }
-                });
             });
 
             Socket.getInstance().onProjectileDead(proj.id, () => {
@@ -92,6 +86,9 @@ export class Game {
     public loadMainPlayer(item: any): void {
         this.mainPlayer = new Player(item.myself);
         this.stage.addChild(this.mainPlayer.getRenderableItem());
+        Socket.getInstance().onPlayerHit(this.mainPlayer.id, (data: any) => {
+            console.log(data);
+        });
     }
 
     public loadNewPlayer(item: any): void {

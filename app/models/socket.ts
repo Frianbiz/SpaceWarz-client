@@ -55,6 +55,12 @@ export class Socket {
         });
     }
 
+    public onPlayerHit(id: String, callback: (data: any) => void) {
+        this.socket.on('player.' + id + '.hit', function (data: any) {
+            callback(data);
+        });
+    }
+
     public on(event: string, callback: (data: any) => void): void {
         this.socket.on(event, callback);
     }
