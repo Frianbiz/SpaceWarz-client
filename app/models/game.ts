@@ -89,6 +89,20 @@ export class Game {
         Socket.getInstance().onPlayerHit(this.mainPlayer.id, (data: any) => {
             console.log(data);
         });
+        this.loadOthersPlayers(item);
+    }
+
+    public loadOthersPlayers(item: any) {
+        let oldPlayers: Player[] = item.othersPlayers;
+        oldPlayers.forEach((playerServ: any) => {
+            if (playerServ !== null) {
+                console.log("playerServ: ", playerServ);
+                let player: Player = new Player(playerServ);
+                this.otherPlayers.push(player);
+                console.log(this.otherPlayers);
+                this.stage.addChild(player.getRenderableItem());
+            }
+        });
     }
 
     public loadNewPlayer(item: any): void {
