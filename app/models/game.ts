@@ -1,3 +1,4 @@
+import { Projectiles } from './projectiles';
 import { Socket } from './socket';
 import { Key } from './../interaction/key';
 import { Map } from './map';
@@ -11,6 +12,7 @@ export class Game {
     //
     public mainPlayer: Player;
     public otherPlayers: Player[] = [];
+    public Projectiles: Projectiles[] = [];
     public stage: any;
     public renderer: any;
     public map: Map;
@@ -46,6 +48,11 @@ export class Game {
         this.rightKey.press = () => {
             this.mainPlayer.moveRight();
         }
+
+        Socket.getInstance().onProjectileEmitted((data: any) => {
+            let proj: Projectiles = new Projectiles(data.id, data.position, data.angle, data.velocity, data.damage);
+            this.stage.addChild(proj.getRenderableItem());
+        })
     }
 
     private addStage(): void {

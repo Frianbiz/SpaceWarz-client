@@ -36,8 +36,10 @@ export class Socket {
         });
     }
 
-    public onShoot(callback: (data: any) => void) {
-
+    public onProjectileEmitted(callback: (data: any) => void) {
+        this.socket.on('projectileEmitted', function (data: any) {
+            callback(data);
+        });
     }
 
     public on(event: string, callback: (data: any) => void): void {
