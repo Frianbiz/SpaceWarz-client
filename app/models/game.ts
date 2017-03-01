@@ -70,6 +70,10 @@ export class Game {
                 proj.onMove(data);
             });
 
+            Socket.getInstance().onProjectileHit(proj.id, () => {
+                proj.item = PIXI.Sprite.fromImage('/img/boum.png');
+            });
+
             Socket.getInstance().onProjectileDead(proj.id, () => {
                 this.stage.removeChild(proj.getRenderableItem());
                 _.remove(this.projectiles, { id: proj.id });
@@ -87,8 +91,15 @@ export class Game {
         this.mainPlayer = new Player(item.myself);
         this.stage.addChild(this.mainPlayer.getRenderableItem());
         Socket.getInstance().onPlayerHit(this.mainPlayer.id, (data: any) => {
+            this.mainPlayer.structurePoint = data;
             console.log(data);
         });
+
+        Socket.getInstance().onPlayerDead(this.mainPlayer.id, () => {
+            this.stage.removeChild(this.mainPlayer.getRenderableItem());
+            console.log("you're dead");
+        });
+
         this.loadOthersPlayers(item);
     }
 
@@ -101,6 +112,12 @@ export class Game {
                 this.otherPlayers.push(player);
                 console.log(this.otherPlayers);
                 this.stage.addChild(player.getRenderableItem());
+
+                Socket.getInstance().onPlayerDead(this.mainPlayer.id, () => {
+                    this.stage.removeChild(this.mainPlayer.getRenderableItem());
+                    console.log("other's dead");
+                    _.remove(this.otherPlayers, { id: this.mainPlayer.id });
+                });
             }
         });
     }

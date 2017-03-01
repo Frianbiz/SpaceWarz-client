@@ -49,6 +49,12 @@ export class Socket {
         });
     }
 
+    public onProjectileHit(id: String, callback: (data: any) => void) {
+        this.socket.on('projectile.' + id + '.hit', function (data: any) {
+            callback(data);
+        });
+    }
+
     public onProjectileDead(id: String, callback: (data: any) => void) {
         this.socket.on('projectile.' + id + '.dead', function (data: any) {
             callback(data);
@@ -57,6 +63,12 @@ export class Socket {
 
     public onPlayerHit(id: String, callback: (data: any) => void) {
         this.socket.on('player.' + id + '.hit', function (data: any) {
+            callback(data);
+        });
+    }
+
+    public onPlayerDead(id: String, callback: (data: any) => void) {
+        this.socket.on('player.' + id + '.dead', function (data: any) {
             callback(data);
         });
     }

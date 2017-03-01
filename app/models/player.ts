@@ -13,6 +13,8 @@ export class Player implements Renderable {
     public item: any;
     public onPlayerMoved: Function;
 
+    public structurePoint: number;
+
     public width: Number = 85;
     public height: Number = 85;
 
@@ -20,6 +22,7 @@ export class Player implements Renderable {
         this.id = data.id;
         this.position = new Position(data.position.x, data.position.y);
         this.angle = data.angle;
+        this.structurePoint = data.ps;
         this.name = data.name;
 
         Socket.getInstance().on('player.' + this.id + '.moved', (data: any) => {
